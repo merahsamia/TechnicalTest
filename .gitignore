@@ -2,7 +2,6 @@
 /node_modules
 /public/build
 /public/hot
-
 /vendor
 .env
 .env.backup
