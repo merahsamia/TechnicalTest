@@ -86,20 +86,42 @@ class ArticleController extends Controller
 
     public function update(Request $request, $id)
     {
-        $validated = $request->validate([
-            'title' => 'sometimes|required|string|max:255',
-            'text' => 'sometimes|required|string',
-            'description' => 'nullable|string',
-            'author' => 'sometimes|required|string|max:255',
-            'image' => 'nullable|string|max:255',
-            'category' => 'sometimes|required|string|max:255',
-        ]);
-
-        $article = Article::findOrFail($id);
-        $article->update($validated);
-
-        return response()->json($article, 200);
+ 
+         $article = Article::find($id);
+        if (!$article) {
+            return response()->json(['error' => 'Article not found'], 404);
+        }
+        try {
+            $validated = $request->validate([
+                'title' => 'required|string|max:255',
+                'text' => 'required|string',
+                'description' => 'nullable|string',
+                'author' => 'required|string|max:255',
+                'category' => 'required|string|max:255',
+            ]);
+ 
+            // Handle image upload
+            if ($request->hasFile('image')) {
+                $validated=$request->validate(
+                    ['image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+                ]);
+                $imagePath = $request->file('image')->store('articles', 'public');
+                $validated['image'] = $imagePath;
+            }
+ 
+            // update the article
+             $article->update($validated);
+ 
+            return response()->json($article, 201);
+        } catch (ValidationException $e) {
+            // If validation fails, return validation errors as JSON
+            return response()->json(['errors' => $e->errors()], 422);
+        } catch (\Exception $e) {
+            // Catch any other exceptions and return as JSON
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
     }
+ 
 
     public function destroy($id)
     {
