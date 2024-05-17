@@ -5,7 +5,7 @@
     <hr>
     <div  v-if="Object.keys(articles).length !== 0" class="grid grid-cols-1 gap-8 md:grid-cols-2 mt-12 xl:grid-cols-3">
       <div v-for="article in articles.data" :key="article.id" class="mb-8 ml-4">
-        <img :src="'/storage/' + article.image" alt="Article Image" class="object-cover w-96 h-96 rounded-lg">
+        <img :src="'/storage/' + article.image" alt="Article Image" class="object-cover w-full h-96 rounded-lg">
            <div class="mt-8">
                 <span class="text-sky-500 uppercase tracking-wider">{{ article.category }}</span>
                 <h1 class="mt-4 text-xl font-semibold text-gray-800 truncate">
@@ -23,7 +23,7 @@
                     <p class="text-sm text-gray-500">{{ article.publish_date }}</p>
                 </div>
                     <a href="#" class="inline-block text-sky-500 underline hover:text-sky-400"
-                     @click.prevent="readMore(article)">Read More</a>
+                     @click.prevent="readMore(article)">Lire plus</a>
                 </div>
           </div>
       </div>
