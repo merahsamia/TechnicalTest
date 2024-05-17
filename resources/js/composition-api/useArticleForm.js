@@ -21,6 +21,7 @@ export default function useArticleForm() {
     const id = ref('');
 
     const articles = ref([]);
+    const articlesLinks = ref([]);
 
     const categoryName = ref("");
 
@@ -33,6 +34,10 @@ export default function useArticleForm() {
         const data = await response.json();
         //console.log(data)
         articles.value = data;
+        articlesLinks.value = data.links
+        //console.log (articlesLinks.value = data.links)
+
+      
         } catch (error) {
         console.error('Error fetching articles:', error);
         }
@@ -178,5 +183,5 @@ export default function useArticleForm() {
 
     return { form, errors, generalError, submitForm, handleFileUpload, submitEditForm ,
          getArticle, categories, getArticlesByCategory, fetchArticle, id, article, 
-         deleteArticle, fetchCategoryArticles, articles, categoryName};
+         deleteArticle, fetchCategoryArticles, articles, categoryName, articlesLinks};
 }
