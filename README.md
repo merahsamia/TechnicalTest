@@ -29,6 +29,18 @@ Générer une clé d'application Laravel :
 
 > php artisan key:generate
 
+Ouvrir le fichier .env:
+
+Remplacer DB_CONNECTION=sqllite par DB_CONNECTION=mysql
+
+Décommenter le reste des lignes relatives à la bd et créér votre propre bdd sur phpmyadmin:
+
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=votrebdd
+DB_USERNAME=root
+DB_PASSWORD=
+
 Effectuer les migrations de la base de données :
 
 > php artisan migrate
