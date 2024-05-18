@@ -32,7 +32,7 @@ class ArticleController extends Controller
 
     public function getArticlesByCategory($category)
     {
-        $articles = Article::where('category', $category)->paginate(1);
+        $articles = Article::where('category', $category)->paginate(3);
         return response()->json($articles);
     }
 
